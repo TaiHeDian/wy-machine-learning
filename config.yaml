@@ -1,0 +1,55 @@
+task:
+  name: words
+  title: Confusion Matrix
+  labels: ["no", "thanks", "come", "arrive", "drink", "like", "delight"]
+  label_source: stem
+  label_map: {}
+  confusion_color: "#2B6CB0"
+
+data:
+  data_dir: data
+  file_glob: "*.txt"
+  encodings: ["utf-8", "gbk", "latin1"]
+  header_lines: 3
+  sample_rate_regex: "(\\d+)\\s*Hz"
+  value_column: 2
+  delimiter_regex: "[\\s,\\t]+"
+
+preprocessing:
+  segment_ms: 1000
+  window_ms: 100
+  threshold_factor: 2.0
+  notch_hz: 50.0
+  notch_q: 30.0
+  bandpass_low_hz: 20.0
+  bandpass_high_hz: 400.0
+  augment: true
+
+training:
+  seed: 42
+  test_size: 0.2
+  batch_size: 32
+  epochs: 80
+  learning_rate: 0.0005
+  weight_decay: 0.0005
+  patience: 20
+  scheduler_factor: 0.5
+  scheduler_patience: 4
+  num_workers: 0
+  device: auto
+  enable_early_stopping: false
+
+model:
+  channels: [32, 64, 128, 128]
+  kernel_sizes: [7, 5, 5, 3]
+  pool_sizes: [2, 2, 2, 1]
+  adaptive_pool_size: 16
+  embedding_dim: 128
+  dropout: 0.3
+  use_batch_norm: true
+
+output:
+  base_dir: outputs
+  timestamp_format: "%Y%m%d_%H%M%S"
+  dpi: 600
+  image_formats: ["png", "tif"]
