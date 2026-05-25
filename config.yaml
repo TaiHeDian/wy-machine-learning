@@ -1,18 +1,18 @@
 task:
   name: words
   title: Confusion Matrix
-  labels: ["no", "thanks", "come", "arrive", "drink", "like", "delight"]
+  labels: ["no", "thanks", "come", "arrive", "drink", "like", "delight"]  # 分类顺序
   label_source: stem
   label_map: {}
-  confusion_color: "#2B6CB0"
+  confusion_color: "#2B6CB0"  # 示意图颜色
 
 data:
   data_dir: data
   file_glob: "*.txt"
   encodings: ["utf-8", "gbk", "latin1"]
-  header_lines: 3
+  header_lines: 3   # 表头长度
   sample_rate_regex: "(\\d+)\\s*Hz"
-  value_column: 2
+  value_column: 3   # 数据所在列数
   delimiter_regex: "[\\s,\\t]+"
 
 preprocessing:
@@ -37,9 +37,10 @@ training:
   scheduler_patience: 4
   num_workers: 0
   device: auto
-  enable_early_stopping: false
+  enable_early_stopping: true   # 训练是否早停
 
 model:
+# 模型形状参数
   channels: [32, 64, 128, 128]
   kernel_sizes: [7, 5, 5, 3]
   pool_sizes: [2, 2, 2, 1]
@@ -49,7 +50,7 @@ model:
   use_batch_norm: true
 
 output:
-  base_dir: outputs
+  base_dir: out
   timestamp_format: "%Y%m%d_%H%M%S"
   dpi: 600
   image_formats: ["png", "tif"]

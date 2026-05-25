@@ -14,7 +14,7 @@
 ```text
 |-- config.yaml
 |-- data/
-|-- outputs/
+|-- out/
 |-- src/
 |   |-- config.py
 |   |-- data.py
@@ -29,7 +29,7 @@
 `-- requirements.txt
 ```
 
-* 将 `data/` 替换为其他数据集，并修改 `config.yaml`中的`task`
+* 将 `data/` 替换为其他数据集，并修改 `config.yaml`中的 `task`
 
 ## 安装依赖
 
@@ -50,7 +50,7 @@ python main.py
 每次运行都会生成一个带时间戳的文件夹：
 
 ```text
-outputs/
+out/
 `-- 20260524_153000/
     |-- config_resolved.yaml
     |-- model.pth
@@ -83,8 +83,8 @@ outputs/
 
 ```yaml
 task:
-  name: words_demo
-  title: Word Gesture Classification
+  name: words
+  title: Confusion Matrix
   labels: ["no", "thanks", "come", "arrive", "drink", "like", "delight"]
   label_source: stem
   label_map: {}
@@ -120,7 +120,7 @@ data:
   encodings: ["utf-8", "gbk", "latin1"]
   header_lines: 3
   sample_rate_regex: "(\\d+)\\s*Hz"
-  value_column: 2
+  value_column: 3
   delimiter_regex: "[\\s,\\t]+"
 ```
 
@@ -133,7 +133,7 @@ data:
 * 哪一列包含信号值
 * 如何将每一行拆分为字段
 
-对于单列信号文件，通常只需要修改 `value_column`，以及可能需要调整 `header_lines`。
+例如，对于单列信号文件，修改 `value_column`为 `1`。
 
 ## 预处理
 
@@ -166,6 +166,8 @@ training:
   device: auto
   enable_early_stopping: true
 ```
+
+`enable_early_stopping`默认为 `true`，设置训练时是否需要**早停**。
 
 ## CNN 结构
 

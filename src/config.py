@@ -150,7 +150,7 @@ DEFAULT_CONFIG: dict[str, Any] = {
         "use_batch_norm": True,
     },
     "output": {
-        "base_dir": "outputs",
+        "base_dir": "out",
         "timestamp_format": "%Y%m%d_%H%M%S",
         "dpi": 600,
         "image_formats": ["png", "tif"],
@@ -190,7 +190,7 @@ def load_config(project_dir: Path) -> AppConfig:
         encodings=list(config_data["data"]["encodings"]),
         header_lines=int(config_data["data"]["header_lines"]),
         sample_rate_regex=str(config_data["data"]["sample_rate_regex"]),
-        value_column=int(config_data["data"]["value_column"]),
+        value_column=int(config_data["data"]["value_column"]) - 1,
         delimiter_regex=str(config_data["data"]["delimiter_regex"]),
     )
     preprocessing = PreprocessingConfig(
